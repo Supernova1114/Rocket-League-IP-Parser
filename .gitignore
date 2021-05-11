@@ -3,6 +3,7 @@
 
 #Project Specific
 .DS_Store
+Parsetest.txt
 
 # User-specific stuff
 .idea/**/workspace.xml
