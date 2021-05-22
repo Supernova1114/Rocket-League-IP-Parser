@@ -151,6 +151,7 @@ public class Controller {
             for (int i=0; i<serverArray2D.length; i++){
                 gridPane.add(new CustomPane(serverArray2D[i][0]), 0, i);
                 gridPane.add(new CustomPane(serverArray2D[i][1]), 1, i);
+
             }
 
             logFolderLink.setText(file.getName());

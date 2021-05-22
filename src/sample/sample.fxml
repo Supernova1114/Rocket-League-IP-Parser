@@ -29,7 +29,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#openGitHubLink" text="About" />
             </items>
           </Menu>
         </menus>

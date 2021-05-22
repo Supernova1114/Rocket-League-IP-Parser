@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -7,6 +9,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,32 +32,20 @@ public class CustomPane extends Hyperlink {
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 clipboard.setContents(stringSelection, null);
 
-                SwingWorker worker = new SwingWorker() {
-                    @Override
-                    protected Object doInBackground() throws Exception {
+                setText("Copied!");
 
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                setText("Copied!");
-                            }
-                        });
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5f), new EventHandler<ActionEvent>() {
 
-                        Thread.sleep(500);
-                        return null;
-                    }
 
                     @Override
-                    protected void done() {
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                setText(text);
-                            }
-                        });
+                    public void handle(ActionEvent event) {
+                        setText(text);
                     }
-                };
-                worker.execute();
+
+
+
+                }));
+                timeline.play();
 
 
 
