@@ -36,6 +36,12 @@ public class Controller {
     }
 
     @FXML
+    public void closeApp(){
+        Main.primaryStage.close();
+        System.exit(0);
+    }
+
+    @FXML
     public void openLogFolder() throws IOException {
         logFolderLink.setVisited(false);
 
