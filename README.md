@@ -1,5 +1,7 @@
 # Rocket-League-IP-Parser
  Finds the IP and server name of a Rocket League server using the game's log files.
+ <br>
+ Requires Java 8
  
  ![GitHub Version](https://img.shields.io/github/v/release/Supernova1114/Rocket-League-IP-Parser)
  
