@@ -145,8 +145,8 @@ public class Controller {
                 String serverGamePortSub = "";
 
                 serverNameSub = serverNameSub.substring(0, serverNameSub.indexOf("\""));
-				serverPingPortSub = serverPingURLSub.substring(serverPingURLSub.indexOf(":")+1, serverPingURLSub.indexOf("\""));
-				serverGamePortSub = serverGameURLSub.substring(serverGameURLSub.indexOf(":")+1, serverGameURLSub.indexOf("\""));
+                serverPingPortSub = serverPingURLSub.substring(serverPingURLSub.indexOf(":")+1, serverPingURLSub.indexOf("\""));
+                serverGamePortSub = serverGameURLSub.substring(serverGameURLSub.indexOf(":")+1, serverGameURLSub.indexOf("\""));
                 serverGameURLSub = serverGameURLSub.substring(0, serverGameURLSub.indexOf(":"));
 
                 serverArray2D[i][0] = serverNameSub;
