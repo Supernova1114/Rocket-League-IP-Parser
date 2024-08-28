@@ -129,34 +129,44 @@ public class Controller {
                 System.out.println(temp);
             }
 
-            serverArray2D = new String[tempList.size()][2];
+            serverArray2D = new String[tempList.size()][4];
 
             //Parse Server IP and Server Name from line
             for (int i=0; i<tempList.size(); i++){
 
                 int serverNameIndex = tempList.get(i).indexOf("ServerName=\"") + 12;
+                int serverPingURLIndex = tempList.get(i).indexOf("PingURL=\"") + 9;
                 int serverGameURLIndex = tempList.get(i).indexOf("GameURL=\"") + 9;
 
                 String serverNameSub = tempList.get(i).substring(serverNameIndex);
                 String serverGameURLSub = tempList.get(i).substring(serverGameURLIndex);
+                String serverPingURLSub = tempList.get(i).substring(serverPingURLIndex);
+                String serverPingPortSub = "";
+                String serverGamePortSub = "";
 
                 serverNameSub = serverNameSub.substring(0, serverNameSub.indexOf("\""));
+				serverPingPortSub = serverPingURLSub.substring(serverPingURLSub.indexOf(":")+1, serverPingURLSub.indexOf("\""));
+				serverGamePortSub = serverGameURLSub.substring(serverGameURLSub.indexOf(":")+1, serverGameURLSub.indexOf("\""));
                 serverGameURLSub = serverGameURLSub.substring(0, serverGameURLSub.indexOf(":"));
 
                 serverArray2D[i][0] = serverNameSub;
                 serverArray2D[i][1] = serverGameURLSub;
+                serverArray2D[i][2] = serverGamePortSub;
+                serverArray2D[i][3] = serverPingPortSub;
 
             }
 
             //Debug
             for (int i=0; i<serverArray2D.length; i++){
-                System.out.println(serverArray2D[i][0] + " | " + serverArray2D[i][1]);
+                System.out.println(serverArray2D[i][0] + " | " + serverArray2D[i][1] + " | " + serverArray2D[i][2] + " | " + serverArray2D[i][3]);
             }
 
             //Add to gridPane
             for (int i=0; i<serverArray2D.length; i++){
                 gridPane.add(new CustomPane(serverArray2D[i][0]), 0, i);
                 gridPane.add(new CustomPane(serverArray2D[i][1]), 1, i);
+                gridPane.add(new CustomPane(serverArray2D[i][2]), 2, i);
+                gridPane.add(new CustomPane(serverArray2D[i][3]), 3, i);
 
             }
 
