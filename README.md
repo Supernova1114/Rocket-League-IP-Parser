@@ -1,5 +1,5 @@
 # Rocket-League-IP-Parser
- Finds the IP and server name of a Rocket League server using the game's log files.
+ Finds the server name, IP, game port, and ping port of a Rocket League server using the game's log files.
  <br>
  Requires Java 8
  
@@ -7,11 +7,13 @@
  
  * Go to **File > Open** and select a Rocket League log file (Usually named "Launch.log")
  * Default Rocket League log file location: **\Documents\My Games\Rocket League\TAGame\Logs**
- * Click a server name or IP to copy it to your clipboard
+ * Click a server name, IP, or port to copy it to your clipboard
 
 **Notes:**
-* Server name (left column)
-* Server IP (right column)
+* Server name (first column)
+* Server IP (second column)
+* Server port (third column)
+* Server ping port (fourth column)
  
  
 ![](repoimages/parser.png)
