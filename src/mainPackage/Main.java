@@ -1,4 +1,4 @@
-package sample;
+package mainPackage;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,15 +14,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
 
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
         primaryStage.setTitle("RL-Log-IP-Parser");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 450, 275));
         primaryStage.show();
-
-
-
     }
-
 
     public static void main(String[] args) {
         launch(args);

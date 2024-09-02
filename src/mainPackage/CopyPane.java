@@ -1,24 +1,21 @@
-package sample;
+package mainPackage;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.OverrunStyle;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 
-public class CustomPane extends Hyperlink {
+public class CopyPane extends Hyperlink {
 
-    public CustomPane(String text){
+    public CopyPane(String text){
         setTextOverrun(OverrunStyle.CLIP);
         setWrapText(true);
         setText(text);
@@ -36,28 +33,16 @@ public class CustomPane extends Hyperlink {
 
                 Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5f), new EventHandler<ActionEvent>() {
 
-
                     @Override
                     public void handle(ActionEvent event) {
                         setText(text);
                     }
 
-
-
                 }));
                 timeline.play();
-
-
-
-
-
-
             }
-        });
+        }); //setOnMouseClicked()
+
     }
-
-
-
-
 
 }

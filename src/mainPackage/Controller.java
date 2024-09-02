@@ -1,7 +1,8 @@
-package sample;
+package mainPackage;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 
 public class Controller {
 
-    String [][] serverArray2D;
+    String [][] dataArray2D;
 
     String logFileFolder = "";
 
@@ -105,59 +106,83 @@ public class Controller {
         //remove children
         gridPane.getChildren().clear();
 
-
         try {
 
             //Read File
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            ArrayList<String> tempList = new ArrayList<>();
+            ArrayList<String> resultList = new ArrayList<>();
+
+            String lineQuery = "GameURL";
 
             String n;
             while ((n = bufferedReader.readLine()) != null){
-                if (n.contains("GameURL")){
-                    tempList.add(n);
+                if (n.contains(lineQuery)){
+                    resultList.add(n);
                 }
             }
 
             bufferedReader.close();
 
-
-
             //Debug
             System.out.println();
-            for (String temp: tempList){
+            for (String temp: resultList){
                 System.out.println(temp);
             }
 
-            serverArray2D = new String[tempList.size()][2];
+            dataArray2D = new String[resultList.size()][4];
 
-            //Parse Server IP and Server Name from line
-            for (int i=0; i<tempList.size(); i++){
+            //Parse server name, address, game port, and ping port.
+            for (int i=0; i<resultList.size(); i++){
 
-                int serverNameIndex = tempList.get(i).indexOf("ServerName=\"") + 12;
-                int serverGameURLIndex = tempList.get(i).indexOf("GameURL=\"") + 9;
+                int serverNameIndex = resultList.get(i).indexOf("ServerName=\"") + 12;
+                int serverPingURLIndex = resultList.get(i).indexOf("PingURL=\"") + 9;
+                int serverGameURLIndex = resultList.get(i).indexOf("GameURL=\"") + 9;
 
-                String serverNameSub = tempList.get(i).substring(serverNameIndex);
-                String serverGameURLSub = tempList.get(i).substring(serverGameURLIndex);
+                String serverNameSub = resultList.get(i).substring(serverNameIndex);
+                String serverGameURLSub = resultList.get(i).substring(serverGameURLIndex);
+                String serverPingURLSub = resultList.get(i).substring(serverPingURLIndex);
+                String serverPingPortSub = "";
+                String serverGamePortSub = "";
 
                 serverNameSub = serverNameSub.substring(0, serverNameSub.indexOf("\""));
+                serverPingPortSub = serverPingURLSub.substring(serverPingURLSub.indexOf(":")+1, serverPingURLSub.indexOf("\""));
+                serverGamePortSub = serverGameURLSub.substring(serverGameURLSub.indexOf(":")+1, serverGameURLSub.indexOf("\""));
                 serverGameURLSub = serverGameURLSub.substring(0, serverGameURLSub.indexOf(":"));
 
-                serverArray2D[i][0] = serverNameSub;
-                serverArray2D[i][1] = serverGameURLSub;
-
+                dataArray2D[i][0] = serverNameSub;
+                dataArray2D[i][1] = serverGameURLSub;
+                dataArray2D[i][2] = serverGamePortSub;
+                dataArray2D[i][3] = serverPingPortSub;
             }
 
             //Debug
-            for (int i=0; i<serverArray2D.length; i++){
-                System.out.println(serverArray2D[i][0] + " | " + serverArray2D[i][1]);
+            for (int i = 0; i< dataArray2D.length; i++){
+                System.out.println(dataArray2D[i][0] + " | " + dataArray2D[i][1] + " | " + dataArray2D[i][2] + " | " + dataArray2D[i][3]);
             }
 
-            //Add to gridPane
-            for (int i=0; i<serverArray2D.length; i++){
-                gridPane.add(new CustomPane(serverArray2D[i][0]), 0, i);
-                gridPane.add(new CustomPane(serverArray2D[i][1]), 1, i);
+            String[] columnTitles = new String[]{
+                    "Server Name:",
+                    "Server Address:",
+                    "Game Port:",
+                    "Ping Port:"
+            };
 
+            int columnCount = columnTitles.length;
+
+            // Add titles to first row.
+            for (int i = 0; i < columnCount; i++)
+            {
+                Label label = new Label(columnTitles[i]);
+                label.setUnderline(true);
+
+                gridPane.add(label, i, 0); // Col, Row
+            }
+
+            //Add data to gridPane
+            for (int i = 0; i < dataArray2D.length; i++) {
+                for (int col = 0; col < columnCount; col++) {
+                    gridPane.add(new CopyPane(dataArray2D[i][col]), col, i + 1);
+                }
             }
 
             logFolderLink.setText(file.getName());
@@ -171,8 +196,5 @@ public class Controller {
         logFolderLink.setDisable(false);
 
     }//beginParse()
-
-
-
 
 }
